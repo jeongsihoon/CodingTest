@@ -7,36 +7,36 @@ import java.util.Stack;
 import java.util.stream.Stream;
 
 public class Problem64061Tests {
-    private static class Solution64061 {
-        public static int solution(int[][] board, int[] moves) {
-            int answer = 0;
-            Stack<Integer> stack = new Stack<>();
-            for (int pickedNumber : moves) {
-                int doll = 0;
-                for (int row = 0; row < board.length; row++) {
-                    int column = pickedNumber - 1;
-                    if (board[row][column] != 0) {
-                        doll = board[row][column];
-                        board[row][column] = 0;
-                        break;
-                    }
-                }
-                if (doll == 0) {
-                    continue;
-                }
-
-                if (!stack.isEmpty() && stack.peek().equals(doll)) {
-                    stack.pop();
-                    answer += 2;
-                } else {
-                    stack.push(doll);
+    int solution(int[][] board, int[] moves) {
+        int answer = 0;
+        Stack<Integer> stack = new Stack<>();
+        for (int pickedNumber : moves) {
+            int doll = 0;
+            for (int row = 0; row < board.length; row++) {
+                int column = pickedNumber - 1;
+                if (board[row][column] != 0) {
+                    doll = board[row][column];
+                    board[row][column] = 0;
+                    break;
                 }
             }
+            if (doll == 0) {
+                continue;
+            }
 
-            return answer;
+            if (!stack.isEmpty() && stack.peek().equals(doll)) {
+                stack.pop();
+                answer += 2;
+            } else {
+                stack.push(doll);
+            }
         }
+
+        return answer;
     }
-    private static Stream<Arguments> provideSources() { // argument source method
+
+    // argument source method
+    private static Stream<Arguments> provideSources() {
         return Stream.of(
                 Arguments.of(
                         // board
@@ -56,7 +56,7 @@ public class Problem64061Tests {
     @ParameterizedTest
     @MethodSource("provideSources")
     void testSolution(int[][] board, int[] moves, int expected) {
-        int result = Solution64061.solution(board, moves);
+        int result = solution(board, moves);
         Assertions.assertEquals(expected, result);
     }
 }
