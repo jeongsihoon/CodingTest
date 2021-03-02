@@ -24,29 +24,20 @@ public class Problem42895Tests {
         for (int i = 2; i <= 32000; i++) {
             if (counts[i] == 0) {
                 counts[i] = counts[i - 1] + counts[1];
-                if (i == 12)
-                    System.out.println("여기 " + counts[i]);
             }
 
             if (i > N) {
                 counts[i] = Math.min(counts[i-N] + 1, counts[i]);
-                if (i == 12)
-                    System.out.println("저기 " + counts[i]);
             }
             if (i % N == 0) {
                 counts[i] = Math.min(counts[i/N] + 1, counts[i]);
-                if (i == 12)
-                    System.out.println("거기 " + counts[i]);
             }
             
             if (i*N < 100000 && counts[i*N] != 0) {
                 counts[i] = Math.min(counts[i*N] + 1, counts[i]);
-                if (i == 12)
-                    System.out.println("미기 " + counts[i]);
             }
-
-
         }
+
         for (int i = 0; i <= 60; i++) {
             System.out.println(String.format("i: %d, value: %d", i, counts[i]));
         }
